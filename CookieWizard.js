@@ -85,7 +85,7 @@ function Autobuy(depth) {
 		}
 	} else {
 		var u = Game.UpgradesById[upgradesforbuy[0].id];
-		if (u.basePrice < Game.cookies) {
+		if (u.getPrice() < Game.cookies) {
 			console.log("[Autobuy] Buying " + u.name);
 			u.buy();
 			QueueBuy(); // try buying another thing

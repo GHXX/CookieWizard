@@ -18,7 +18,7 @@ var autoGoldenCookie = setInterval(function() {
 
 // autobuy script
 var autobuyInterval = 1000;	
-console.log("Checking...");
+console.log("Autobuy enabled.");
 
 function Autobuy(depth) {
 	var blacklist = [69, 562, 327];

@@ -1,6 +1,11 @@
-if(typeof CM === 'undefined')
+function isCMLoaded()
 {
-  Game.LoadMod('https://aktanusa.github.io/CookieMonster/CookieMonster.js');
+	return typeof CM !== 'undefined';
+}
+
+if(!isCMLoaded())
+{
+	Game.LoadMod('https://aktanusa.github.io/CookieMonster/CookieMonster.js');
 }
 
 // autoclick golden cookies
@@ -14,8 +19,12 @@ var autoGoldenCookie = setInterval(function() {
 	} 
   }, 500);
   
+  
+
 // autobuy script
-var autoBuy = setInterval(function() {
+var autobuyInterval = 1000;
+
+function Autobuy(depth) {	
 	var blacklist = [69];
 
 	function filterAvailUpgr(upgrades) {
@@ -50,6 +59,13 @@ var autoBuy = setInterval(function() {
 		}
 		return bb;
 	}
+		
+	function QueueBuy() {
+		var requeueInterval = 50;
+		if(depth < (autobuyInterval*0.9)/requeueInterval)
+			setTimeout(function(){ Autobuy(depth+1);}, requeueInterval);
+	}
+		
 	upgradesforbuy = filterAvailUpgr(CM.Cache.Upgrades).sort(function(a, b) {
 		if (a.pp > b.pp) {
 			return 1;
@@ -61,27 +77,27 @@ var autoBuy = setInterval(function() {
 	});
 	var bbppfull = getBestBuilding();
 	var bbpp = bbppfull[1].pp;
-	var doBuy = true;
-	while (doBuy) {
-		doBuy = false; // set it to false temporarily
-		if (upgradesforbuy.length == 0 || bbpp < upgradesforbuy[0].pp) {
-			for (var i = 0; i < Game.ObjectsById.length; i++) {
-				if (bbppfull[0] == Game.ObjectsById[i].name) {
-					if (Game.ObjectsById[i].price < Game.cookies) {
-						console.log("[Autobuy] Buying 1 " + Game.ObjectsById[i].single);
-						Game.ObjectsById[i].buy();
-						doBuy = true; // try buying another thing
-						break;
-					}
+	if (upgradesforbuy.length == 0 || bbpp < upgradesforbuy[0].pp) {
+		for (var i = 0; i < Game.ObjectsById.length; i++) {
+			if (bbppfull[0] == Game.ObjectsById[i].name) {
+				if (Game.ObjectsById[i].price < Game.cookies) {
+					console.log("[Autobuy] Buying 1 " + Game.ObjectsById[i].single);
+					Game.ObjectsById[i].buy();
+					QueueBuy(); // try buying another thing
+					break;
 				}
 			}
-		} else {
-			var u = Game.UpgradesById[upgradesforbuy[0].id];
-			if (u.basePrice < Game.cookies) {
-				console.log("[Autobuy] Buying " + u.name);
-				u.buy();
-				doBuy = true; // try buying another thing
-			}
 		}
-	}
-}, 1000);
+	} else {
+		var u = Game.UpgradesById[upgradesforbuy[0].id];
+		if (u.basePrice < Game.cookies) {
+			console.log("[Autobuy] Buying " + u.name);
+			u.buy();
+			QueueBuy(); // try buying another thing
+		}
+	}	
+}
+
+
+
+var autoBuy = setInterval(function(){ Autobuy(0);}, autobuyInterval);

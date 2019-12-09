@@ -17,11 +17,11 @@ var autoGoldenCookie = setInterval(function() {
   
 
 // autobuy script
-var autobuyInterval = 1000;
+var autobuyInterval = 1000;	
+console.log("Checking...");
 
-function Autobuy(depth) {	
-	console.log("Checking...");
-	var blacklist = [69];
+function Autobuy(depth) {
+	var blacklist = [69, 562, 327];
 
 	function filterAvailUpgr(upgrades) {
 		var upgradeIDs = [];

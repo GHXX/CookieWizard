@@ -57,7 +57,6 @@ function Autobuy(depth) {
 	}
 		
 	function QueueBuy() {
-		return;
 		var requeueInterval = 50;
 		if(depth < (autobuyInterval*0.9)/requeueInterval)
 			setTimeout(function(){ Autobuy(depth+1);}, requeueInterval);

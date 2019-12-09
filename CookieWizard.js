@@ -1,9 +1,4 @@
-function isCMLoaded()
-{
-	return typeof CM !== 'undefined';
-}
-
-if(!isCMLoaded())
+if(typeof CM === 'undefined')
 {
 	Game.LoadMod('https://aktanusa.github.io/CookieMonster/CookieMonster.js');
 }
@@ -25,6 +20,7 @@ var autoGoldenCookie = setInterval(function() {
 var autobuyInterval = 1000;
 
 function Autobuy(depth) {	
+	console.log("Checking...");
 	var blacklist = [69];
 
 	function filterAvailUpgr(upgrades) {
@@ -61,6 +57,7 @@ function Autobuy(depth) {
 	}
 		
 	function QueueBuy() {
+		return;
 		var requeueInterval = 50;
 		if(depth < (autobuyInterval*0.9)/requeueInterval)
 			setTimeout(function(){ Autobuy(depth+1);}, requeueInterval);
@@ -76,8 +73,7 @@ function Autobuy(depth) {
 		return 0;
 	});
 	var bbppfull = getBestBuilding();
-	var bbpp = bbppfull[1].pp;
-	if (upgradesforbuy.length == 0 || bbpp < upgradesforbuy[0].pp) {
+	if (upgradesforbuy.length == 0 || (bbppfull.length > 0 && bbppfull[1].pp < upgradesforbuy[0].pp)) {
 		for (var i = 0; i < Game.ObjectsById.length; i++) {
 			if (bbppfull[0] == Game.ObjectsById[i].name) {
 				if (Game.ObjectsById[i].price < Game.cookies) {

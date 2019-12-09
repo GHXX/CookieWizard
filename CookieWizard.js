@@ -1,6 +1,16 @@
+if(typeof CookieWizard === 'undefined')
+{
+  CookieWizard = "Cookie Wizard is loaded!";
+}
+else
+{
+  return;	
+}
+
+
 if(typeof CM === 'undefined')
 {
-	Game.LoadMod('https://aktanusa.github.io/CookieMonster/CookieMonster.js');
+  Game.LoadMod('https://aktanusa.github.io/CookieMonster/CookieMonster.js');
 }
 
 // autoclick golden cookies

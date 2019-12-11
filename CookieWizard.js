@@ -81,7 +81,7 @@ if(typeof CookieWizard === 'undefined')
 		if (Game.BuildingsOwned == 0) // when the player owns no buildings, buy a cursor
 		{
 			var cursorBuilding = Game.ObjectsById[0];
-			if (cursorBuilding.getPrice() < Game.cookies)
+			if (cursorBuilding.getPrice() <= Game.cookies)
 			{
 				cursorBuilding.buy(1);
 			}

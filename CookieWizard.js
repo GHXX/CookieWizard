@@ -78,35 +78,46 @@ if(typeof CookieWizard === 'undefined')
 				setTimeout(function(){ Autobuy(depth+1);}, requeueInterval);
 		}
 			
-		upgradesforbuy = filterAvailUpgr(CM.Cache.Upgrades).sort(function(a, b) {
-			if (a.pp > b.pp) {
-				return 1;
+		if (Game.BuildingsOwned == 0) // when the player owns no buildings, buy a cursor
+		{
+			var cursorBuilding = Game.ObjectsById[0];
+			if (cursorBuilding.getPrice() < Game.cookies)
+			{
+				cursorBuilding.buy(1);
 			}
-			if (a.pp < b.pp) {
-				return -1;
-			}
-			return 0;
-		});
-		var bbppfull = getBestBuilding();
-		if (upgradesforbuy.length == 0 || (bbppfull.length > 0 && bbppfull[1].pp < upgradesforbuy[0].pp) && upgradesforbuy[0].pp != Infinity) {
-			for (var i = 0; i < Game.ObjectsById.length; i++) {
-				if (bbppfull[0] == Game.ObjectsById[i].name) {
-					if (Game.ObjectsById[i].price < Game.cookies) {
-						console.log("[Autobuy] Buying 1 " + Game.ObjectsById[i].single);
-						Game.ObjectsById[i].buy();
-						QueueBuy(); // try buying another thing
-						break;
+		}
+		else
+		{
+			upgradesforbuy = filterAvailUpgr(CM.Cache.Upgrades).sort(function(a, b) {
+				if (a.pp > b.pp) {
+					return 1;
+				}
+				if (a.pp < b.pp) {
+					return -1;
+				}
+				return 0;
+			});
+			var bbppfull = getBestBuilding();
+			if (upgradesforbuy.length == 0 || (bbppfull.length > 0 && bbppfull[1].pp < upgradesforbuy[0].pp) && upgradesforbuy[0].pp != Infinity) {
+				for (var i = 0; i < Game.ObjectsById.length; i++) {
+					if (bbppfull[0] == Game.ObjectsById[i].name) {
+						if (Game.ObjectsById[i].price < Game.cookies) {
+							console.log("[Autobuy] Buying 1 " + Game.ObjectsById[i].single);
+							Game.ObjectsById[i].buy();
+							QueueBuy(); // try buying another thing
+							break;
+						}
 					}
 				}
-			}
-		} else {
-			var u = Game.UpgradesById[upgradesforbuy[0].id];
-			if (u.getPrice() < Game.cookies) {
-				console.log("[Autobuy] Buying " + u.name);
-				u.buy();
-				QueueBuy(); // try buying another thing
-			}
-		}	
+			} else {
+				var u = Game.UpgradesById[upgradesforbuy[0].id];
+				if (u.getPrice() < Game.cookies) {
+					console.log("[Autobuy] Buying " + u.name);
+					u.buy();
+					QueueBuy(); // try buying another thing
+				}
+			}	
+		}
 	}
 
 

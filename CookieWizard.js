@@ -26,6 +26,7 @@ if(typeof CookieWizard === 'undefined')
 
 	function Autobuy(depth) {
 		var blacklist = [69, 562, 327];
+		var goldenCookieUpgrades = [52, 53, 86]; // the three upgrades that improve golden cookies are prioritized
 
 		function filterAvailUpgr(upgrades) {
 			var upgradeIDs = [];
@@ -38,7 +39,7 @@ if(typeof CookieWizard === 'undefined')
 							blacklisted = true;
 						}
 					}
-					if (u.name == key && !blacklisted && upgrades[key].pp !== Infinity && (u.basePrice - Game.cookies) / Game.cookiesPs < 600) {
+					if (u.name == key && !blacklisted && (upgrades[key].pp !== Infinity || goldenCookieUpgrades.includes(u.id)) && (u.basePrice - Game.cookies) / Game.cookiesPs < 600) {
 						upgradeIDs.push({
 							"id": u.id,
 							"pp": upgrades[key].pp

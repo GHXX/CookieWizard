@@ -88,7 +88,7 @@ if(typeof CookieWizard === 'undefined')
 			return 0;
 		});
 		var bbppfull = getBestBuilding();
-		if (upgradesforbuy.length == 0 || (bbppfull.length > 0 && bbppfull[1].pp < upgradesforbuy[0].pp)) {
+		if (upgradesforbuy.length == 0 || (bbppfull.length > 0 && bbppfull[1].pp < upgradesforbuy[0].pp) && upgradesforbuy[0].pp != Infinity) {
 			for (var i = 0; i < Game.ObjectsById.length; i++) {
 				if (bbppfull[0] == Game.ObjectsById[i].name) {
 					if (Game.ObjectsById[i].price < Game.cookies) {

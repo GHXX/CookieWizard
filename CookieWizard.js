@@ -39,11 +39,22 @@ if(typeof CookieWizard === 'undefined')
 							blacklisted = true;
 						}
 					}
-					if (u.name == key && !blacklisted && (upgrades[key].pp !== Infinity || goldenCookieUpgrades.includes(u.id)) && (u.basePrice - Game.cookies) / Game.cookiesPs < 600) {
-						upgradeIDs.push({
-							"id": u.id,
-							"pp": upgrades[key].pp
-						});
+					var whitelisted = goldenCookieUpgrades.includes(u.id);					
+					if (u.name == key && !blacklisted && (upgrades[key].pp !== Infinity || whitelisted) && (u.basePrice - Game.cookies) / Game.cookiesPs < 600) 
+					{
+						var upgradeObj = {
+								"id": u.id,
+								"pp": upgrades[key].pp
+							};
+							
+						if (whitelisted)
+						{
+							return [upgradeObj];
+						}
+						else
+						{
+							upgradeIDs.push(upgradeObj);
+						}
 					}
 				}
 			}

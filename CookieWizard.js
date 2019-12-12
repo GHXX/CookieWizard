@@ -8,10 +8,10 @@ if(typeof CookieWizard === 'undefined')
 	}
 
 	// autoclick golden cookies
-	var autoGoldenCookie = setInterval(function() { 
+	var autoShimmers = setInterval(function() { 
 		for (var h in Game.shimmers)
 		{
-		  if(Game.shimmers[h].type == "golden" && Game.shimmers[h].wrath == 0)
+		  if(Game.shimmers[h].type == "golden" && Game.shimmers[h].wrath == 0 || Game.shimmers[h].type == "reindeer")
 		  {
 			Game.shimmers[h].pop();
 		  }

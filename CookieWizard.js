@@ -26,7 +26,10 @@ if(typeof CookieWizard === 'undefined')
 
 	function Autobuy(depth) {
 		var blacklist = [69, 562, 327];
-		var goldenCookieUpgrades = [52, 53, 86]; // the three upgrades that improve golden cookies are prioritized
+		var goldenCookieUpgrades = [52, 53, 86, // the three upgrades that improve golden cookies are prioritized
+		152, //  festive hat 
+		157,158,159,160,161,164,165 // santa upgrades		
+		];
 
 		function filterAvailUpgr(upgrades) {
 			var upgradeIDs = [];

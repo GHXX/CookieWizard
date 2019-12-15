@@ -28,8 +28,8 @@ if(typeof CookieWizard === 'undefined')
 		var blacklist = [69, 562, 327];
 		var whitelist = [52, 53, 86, // the three upgrades that improve golden cookies are prioritized
 		152, //  festive hat 
-		157,158,159,160,161,163,164, // santa upgrades		
-		223, // faberge egg
+		157,158,159,160,161,163,164, // santa upgrades
+		222,223,224,225,226,227,229, // easter eggs
 		324 // crumbly egg (cookie dragon)
 		];
 

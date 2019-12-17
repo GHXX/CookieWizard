@@ -45,7 +45,7 @@ if(typeof CookieWizard === 'undefined')
 						}
 					}
 					var whitelisted = whitelist.includes(u.id);					
-					if (u.name == key && !blacklisted && (upgrades[key].pp !== Infinity || whitelisted) && (u.getPrice() - Game.cookies) / Game.cookiesPs < 600) 
+					if (u.name == key && !blacklisted && (upgrades[key].pp !== Infinity || whitelisted) && (u.getPrice() - Game.cookies) / Game.cookiesPs < 120) 
 					{
 						var upgradeObj = {
 								"id": u.id,

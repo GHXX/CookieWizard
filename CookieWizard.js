@@ -2,9 +2,10 @@ if(typeof CookieWizard === 'undefined')
 {
 	CookieWizard = "Cookie Wizard is loaded!";
   
-	if(typeof CM === 'undefined')
+	if(typeof CookieMonsterData === 'undefined')
 	{
-	  Game.LoadMod('https://aktanusa.github.io/CookieMonster/CookieMonster.js');
+	  console.log("Loading cookiemonster.");
+	  Game.LoadMod("https://cookiemonsterteam.github.io/CookieMonster/dist/CookieMonster.js");
 	}
 
 	// autoclick golden cookies
@@ -45,7 +46,7 @@ if(typeof CookieWizard === 'undefined')
 						}
 					}
 					var whitelisted = whitelist.includes(u.id);					
-					if (u.name == key && !blacklisted && (upgrades[key].pp !== Infinity || whitelisted) && (u.getPrice() - Game.cookies) / Game.cookiesPs < 120) 
+					if (u.name == key && !blacklisted && ((upgrades[key].pp != null && upgrades[key].pp !== Infinity) || whitelisted) && (u.getPrice() - Game.cookies) / Game.cookiesPs < 120) 
 					{
 						var upgradeObj = {
 								"id": u.id,
@@ -68,9 +69,9 @@ if(typeof CookieWizard === 'undefined')
 
 		function getBestBuilding() {
 			var bb = [];
-			for (key in CM.Cache.Objects) {
-				if (bb.length == 0 || bb[1].pp > CM.Cache.Objects[key].pp) {
-					var obj = CM.Cache.Objects[key];
+			for (key in CookieMonsterData.Objects1) {
+				if (bb.length == 0 || bb[1].pp > CookieMonsterData.Objects1[key].pp) {
+					var obj = CookieMonsterData.Objects1[key];
 					bb = [key, obj];
 				}
 			}
@@ -93,7 +94,7 @@ if(typeof CookieWizard === 'undefined')
 		}
 		else
 		{
-			upgradesforbuy = filterAvailUpgr(CM.Cache.Upgrades).sort(function(a, b) {
+			upgradesforbuy = filterAvailUpgr(CookieMonsterData.Upgrades).sort(function(a, b) {
 				if (a.pp > b.pp) {
 					return 1;
 				}

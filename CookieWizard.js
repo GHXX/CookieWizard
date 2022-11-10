@@ -19,7 +19,7 @@ if(typeof CookieWizard === 'undefined')
 		} 
 	  }, 500);
 	  
-	const BuyBuildingsBonusIncome = require(".Sim/SimulationEvents/BuyBuildingBonusIncome.js")
+	  
 
 	// autobuy script
 	var autobuyInterval = 1000;	
@@ -70,29 +70,11 @@ if(typeof CookieWizard === 'undefined')
 		function getBestBuilding() {
 			var bb = [];
 			for (key in CookieMonsterData.Objects1) {
-				
-				// CODE TAKEN FROM https://github.com/CookieMonsterTeam/CookieMonster/blob/dev/src/Disp/Tooltips/TypesOfTooltips/Building.js
-				let PPOfAmount = undefined;
-				let TimeNeeded = -1;
-				const ObjectsTillNext = CacheObjectsNextAchievement[key];
-				if (ObjectsTillNext.AmountNeeded < 101) {
-				  if (Game.cookiesPs) {
-				    PPOfAmount = Math.max(ObjectsTillNext.price - Game.cookies, 0) / Game.cookiesPs + ObjectsTillNext.price / BuyBuildingsBonusIncome(key, ObjectsTillNext.AmountNeeded);
-					TimeNeeded = Math.max(ObjectsTillNext.price - Game.cookies, 0) / Game.cookiesPs
-				  }
-				  else {
-				    PPOfAmount = ObjectsTillNext.price / BuyBuildingsBonusIncome(key, ObjectsTillNext.AmountNeeded);
-					TimeNeeded = Math.max(ObjectsTillNext.price - Game.cookies, 0) / Game.cookiesPs
-				  }
-				}
-				// END OF TAKEN CODE
-				
-				if (bb.length == 0 || bb[1].pp > CookieMonsterData.Objects1[key].pp || (TimeNeeded < 120 && PPOfAmount !== undefined && bb[1].pp > PPOfAmount)) {
+				if (bb.length == 0 || bb[1].pp > CookieMonsterData.Objects1[key].pp) {
 					var obj = CookieMonsterData.Objects1[key];
 					bb = [key, obj];
 				}
 			}
-			
 			return bb;
 		}
 			
